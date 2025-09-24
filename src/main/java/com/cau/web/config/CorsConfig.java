@@ -13,11 +13,12 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 //放行哪些原始域
 //                .allowedOriginPatterns("*")
-                // 生产环境域名
-                .allowedOrigins("http://101.200.87.86:8087","https://libweb.csgone.cn","https://api.csgone.cn")//此处需要重新设置
-
-                // 本地调试
-//                .allowedOrigins("http://localhost:9528")
+        // 生产环境与本地允许的来源（仅列出前端页面所在域名；后端自身域名通常不必加入）
+        .allowedOrigins(
+            "https://libweb.csgone.cn",
+            "http://libweb.csgone.cn",
+            "http://localhost:9528"
+        )
                 .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE","OPTIONS"})
                 .allowedHeaders("*")
                 .exposedHeaders("*");

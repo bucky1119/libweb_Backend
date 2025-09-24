@@ -80,6 +80,7 @@ public class ArticleController {
     // 添加文章筛选与排序接口
     @GetMapping("/search")
     public ApiResponseNormal<Page<Article>> searchArticles(
+        @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String infoType,
@@ -95,8 +96,8 @@ public class ArticleController {
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize
     ) {
-        Page<Article> articles = articleService.searchArticles(
-                title, author, infoType, postAgency, text, startDate, endDate, nation, domain, subject,
+    Page<Article> articles = articleService.searchArticles(
+        keyword, title, author, infoType, postAgency, text, startDate, endDate, nation, domain, subject,
                 sortBy, sortOrder, pageNumber, pageSize);
         return new ApiResponseNormal<>(200, articles, "筛选与排序成功");
     }

@@ -18,10 +18,10 @@ public class HomePageController {
     @PostMapping("/homepage")
     public ApiResponseNormal<Page<Article>> getHomepageContent(@RequestBody ArticleSearchRequest request) {
         if (request.isEmpty()) {
-            return new ApiResponseNormal<>(200, articleService.getAllArticles(request.getPageNumber(), request.getPageSize()), "检索成功"
-        );
+            return new ApiResponseNormal<>(200, articleService.getAllArticles(request.getPageNumber(), request.getPageSize()), "检索成功");
         }
         return new ApiResponseNormal<>(200, articleService.searchArticles(
+                request.getKeyword(),
                 request.getTitle(),
                 request.getAuthor(),
                 request.getInfo_type(),

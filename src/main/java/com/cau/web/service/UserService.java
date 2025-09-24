@@ -29,9 +29,11 @@ public class UserService {
 
     // 添加用户
     public String addUser(User user) {
-        if (userMapper.selectById(user.getId()) != null) {
+        if (user.getId() != null && userMapper.selectById(user.getId()) != null) {
             return "用户ID已存在";
         }
+        // 也可按用户名唯一
+        // TODO: 如需要可增加根据用户名查询判重
         // 加密密码
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insert(user);
@@ -43,8 +45,12 @@ public class UserService {
         if (userMapper.selectById(user.getId()) == null) {
             return "用户不存在";
         }
-        // 加密密码
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // 如果传入了新密码则加密更新，否则不改密码
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(null);
+        }
         userMapper.updateById(user);
         return "用户信息已更新";
     }
@@ -56,6 +62,17 @@ public class UserService {
         }
         userMapper.deleteById(id);
         return "用户已删除";
+    }
+
+    // 重置密码
+    public String resetPassword(Integer id, String newPassword) {
+        User user = userMapper.selectById(id);
+        if (user == null) {
+            return "用户不存在";
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userMapper.updateById(user);
+        return "密码已重置";
     }
 }
 

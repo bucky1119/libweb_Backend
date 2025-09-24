@@ -14,7 +14,7 @@ public interface ArticleService {
     boolean deleteArticleById(Long id);
     List<Article> getLatestArticles();
     // 这是需要确保与实现类一致的方法签名
-    Page<Article> searchArticles(String title, String author, String info_type, String postAgency, String text,
+    Page<Article> searchArticles(String keyword, String title, String author, String info_type, String postAgency, String text,
                                  LocalDate startDate, LocalDate endDate, String nation, String domain, String subject,
                                  String sortBy, String sortOrder, int pageNumber, int pageSize);
     Integer getMaxId();

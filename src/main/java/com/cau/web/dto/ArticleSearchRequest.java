@@ -5,6 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public class ArticleSearchRequest {
+    // 全局检索关键字（在标题、作者、postAgency、nation、text 上模糊匹配）
+    private String keyword;
     private String title;
     private String author;
     private String info_type;
@@ -27,7 +29,8 @@ public class ArticleSearchRequest {
     // Getters and setters...
 
     public boolean isEmpty() {
-        return (title == null || title.isEmpty()) &&
+    return (keyword == null || keyword.isEmpty()) &&
+        (title == null || title.isEmpty()) &&
                 (author == null || author.isEmpty()) &&
                 (info_type == null || info_type.isEmpty()) &&
                 (postAgency == null || postAgency.isEmpty()) &&
@@ -43,7 +46,7 @@ public class ArticleSearchRequest {
 
     // Getters and Setters for new fields
     public String getSortBy() {
-        return sortBy != null ? sortBy : "date";  // 默认按日期排序
+        return sortBy != null ? sortBy : "article_date";  // 默认按文章日期排序
     }
 
     public String getSortOrder() {
@@ -52,6 +55,14 @@ public class ArticleSearchRequest {
 
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getInfo_type() {

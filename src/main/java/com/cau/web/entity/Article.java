@@ -29,7 +29,7 @@ public class Article {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField("article_date")
-    private Date date;
+    private Date articleDate;
 
     @TableField("link_url")
     private String linkUrl;
@@ -106,12 +106,12 @@ public class Article {
         this.nation = nation;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getArticleDate() {
+        return articleDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setArticleDate(Date articleDate) {
+        this.articleDate = articleDate;
     }
 
     public String getLinkUrl() {
@@ -156,7 +156,7 @@ public class Article {
                 ", infoType='" + infoType + '\'' +
                 ", postAgency='" + postAgency + '\'' +
                 ", nation='" + nation + '\'' +
-                ", date=" + date +
+                ", date=" + articleDate +
                 ", linkUrl='" + linkUrl + '\'' +
                 ", domain='" + domain + '\'' +
                 ", subject='" + subject + '\'' +

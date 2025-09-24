@@ -44,9 +44,20 @@ public class AuthController {
     }
 
     @GetMapping("/info")
-    public ApiResponseNormal<User> getUserInfo(@RequestHeader("Authorization") String token) {
+    public ApiResponseNormal<User> getUserInfo(
+            @RequestHeader(value = "Authorization", required = false) String tokenHeader,
+            @RequestParam(value = "token", required = false) String tokenParam
+    ) {
         System.out.println("info");
-        String username = JwtUtil.getUsernameFromToken(token);
+        // 兼容标准 Authorization 头：Bearer <jwt-token>，若请求头缺失则退回查询参数 token
+        String rawToken = tokenHeader;
+        if (rawToken == null || rawToken.isEmpty()) {
+            rawToken = tokenParam;
+        }
+        if (rawToken != null && rawToken.toLowerCase().startsWith("bearer ")) {
+            rawToken = rawToken.substring(7);
+        }
+        String username = JwtUtil.getUsernameFromToken(rawToken);
         User user = authService.getUserInfo(username);
         return new ApiResponseNormal<>(200, user, "获取用户信息成功");
     }

@@ -133,7 +133,7 @@ public class ExcelExportService {
             row.createCell(3).setCellValue(article.getInfoType());
             row.createCell(4).setCellValue(article.getPostAgency());
             row.createCell(5).setCellValue(article.getNation());
-            row.createCell(6).setCellValue(article.getDate().toString());
+            row.createCell(6).setCellValue(article.getArticleDate() != null ? article.getArticleDate().toString() : "");
             row.createCell(7).setCellValue(article.getLinkUrl());
             row.createCell(8).setCellValue(article.getDomain());
             row.createCell(9).setCellValue(article.getSubject());
