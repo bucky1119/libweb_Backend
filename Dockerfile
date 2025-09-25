@@ -5,7 +5,7 @@ FROM maven:3.8.8-eclipse-temurin-8 AS build
 WORKDIR /workspace
 COPY pom.xml .
 COPY src ./src
-RUN mvn -B -DskipTests clean package
+RUN mvn -s /app/.m2/settings.xml -B -DskipTests clean package
 
 # 2) Runtime 阶段
 FROM openjdk:8-jdk-alpine
