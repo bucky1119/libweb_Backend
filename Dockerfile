@@ -5,7 +5,9 @@ FROM maven:3.8.8-eclipse-temurin-8 AS build
 WORKDIR /workspace
 COPY pom.xml .
 COPY src ./src
-RUN mvn -s /app/.m2/settings.xml -B -DskipTests clean package
+# 复制 settings-docker.xml 到容器内
+COPY settings-docker.xml /root/.m2/settings.xml
+RUN mvn -s /root/.m2/settings.xml -B -DskipTests clean package
 
 # 2) Runtime 阶段
 FROM openjdk:8-jdk-alpine
